@@ -37,7 +37,7 @@ namespace Newtonsoft.Json.Utilities
         /// <summary>
         /// Don't run action but let a compiler detect the code in action as an executable block.
         /// </summary>
-        public static void Ensure(Action action)
+        public static void Ensure(Newtonsoft.Json.Serialization.Action action)
         {
             if (IsFalse())
             {

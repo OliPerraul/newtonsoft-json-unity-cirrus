@@ -44,9 +44,9 @@ namespace Newtonsoft.Json.Utilities
         private readonly object _lock = new object();
         private Dictionary<TKey, TValue> _store;
 #endif
-        private readonly Func<TKey, TValue> _creator;
+        private readonly Newtonsoft.Json.Serialization.Func<TKey, TValue> _creator;
 
-        public ThreadSafeStore(Func<TKey, TValue> creator)
+        public ThreadSafeStore(Newtonsoft.Json.Serialization.Func<TKey, TValue> creator)
         {
             ValidationUtils.ArgumentNotNull(creator, nameof(creator));
 

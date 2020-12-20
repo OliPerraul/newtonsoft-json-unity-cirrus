@@ -40,8 +40,8 @@ namespace Newtonsoft.Json.Utilities
     internal class ReflectionMember
     {
         public Type? MemberType { get; set; }
-        public Func<object, object?>? Getter { get; set; }
-        public Action<object, object?>? Setter { get; set; }
+        public Newtonsoft.Json.Serialization.Func<object, object?>? Getter { get; set; }
+        public Serialization.Action<object, object?>? Setter { get; set; }
     }
 
     internal class ReflectionObject
@@ -57,13 +57,13 @@ namespace Newtonsoft.Json.Utilities
 
         public object? GetValue(object target, string member)
         {
-            Func<object, object?> getter = Members[member].Getter!;
+            Newtonsoft.Json.Serialization.Func<object, object?> getter = Members[member].Getter!;
             return getter(target);
         }
 
         public void SetValue(object target, string member, object? value)
         {
-            Action<object, object?> setter = Members[member].Setter!;
+            Serialization.Action<object, object?> setter = Members[member].Setter!;
             setter(target, value);
         }
 
@@ -90,7 +90,7 @@ namespace Newtonsoft.Json.Utilities
             {
                 if (ReflectionUtils.HasDefaultConstructor(t, false))
                 {
-                    Func<object> ctor = delegateFactory.CreateDefaultConstructor<object>(t);
+                    Newtonsoft.Json.Serialization.Func<object> ctor = delegateFactory.CreateDefaultConstructor<object>(t);
 
                     creatorConstructor = args => ctor();
                 }

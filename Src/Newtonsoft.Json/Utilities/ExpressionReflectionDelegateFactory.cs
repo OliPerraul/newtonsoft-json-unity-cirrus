@@ -187,7 +187,7 @@ namespace Newtonsoft.Json.Utilities
             return callExpression;
         }
 
-        public override Func<T> CreateDefaultConstructor<T>(Type type)
+        public override Newtonsoft.Json.Serialization.Func<T> CreateDefaultConstructor<T>(Type type)
         {
             ValidationUtils.ArgumentNotNull(type, "type");
 
@@ -205,9 +205,9 @@ namespace Newtonsoft.Json.Utilities
 
                 expression = EnsureCastExpression(expression, resultType);
 
-                LambdaExpression lambdaExpression = Expression.Lambda(typeof(Func<T>), expression);
+                LambdaExpression lambdaExpression = Expression.Lambda(typeof(Newtonsoft.Json.Serialization.Func<T>), expression);
 
-                Func<T> compiled = (Func<T>)lambdaExpression.Compile();
+                Newtonsoft.Json.Serialization.Func<T> compiled = (Newtonsoft.Json.Serialization.Func<T>)lambdaExpression.Compile();
                 return compiled;
             }
             catch
@@ -218,7 +218,7 @@ namespace Newtonsoft.Json.Utilities
             }
         }
 
-        public override Func<T, object?> CreateGet<T>(PropertyInfo propertyInfo)
+        public override Newtonsoft.Json.Serialization.Func<T, object?> CreateGet<T>(PropertyInfo propertyInfo)
         {
             ValidationUtils.ArgumentNotNull(propertyInfo, nameof(propertyInfo));
 
@@ -247,13 +247,13 @@ namespace Newtonsoft.Json.Utilities
 
             resultExpression = EnsureCastExpression(resultExpression, resultType);
 
-            LambdaExpression lambdaExpression = Expression.Lambda(typeof(Func<T, object>), resultExpression, parameterExpression);
+            LambdaExpression lambdaExpression = Expression.Lambda(typeof(Newtonsoft.Json.Serialization.Func<T, object>), resultExpression, parameterExpression);
 
-            Func<T, object?> compiled = (Func<T, object?>)lambdaExpression.Compile();
+            Newtonsoft.Json.Serialization.Func<T, object?> compiled = (Newtonsoft.Json.Serialization.Func<T, object?>)lambdaExpression.Compile();
             return compiled;
         }
 
-        public override Func<T, object?> CreateGet<T>(FieldInfo fieldInfo)
+        public override Newtonsoft.Json.Serialization.Func<T, object?> CreateGet<T>(FieldInfo fieldInfo)
         {
             ValidationUtils.ArgumentNotNull(fieldInfo, nameof(fieldInfo));
 
@@ -273,11 +273,11 @@ namespace Newtonsoft.Json.Utilities
 
             fieldExpression = EnsureCastExpression(fieldExpression, typeof(object));
 
-            Func<T, object?> compiled = Expression.Lambda<Func<T, object?>>(fieldExpression, sourceParameter).Compile();
+            Newtonsoft.Json.Serialization.Func<T, object?> compiled = Expression.Lambda<Newtonsoft.Json.Serialization.Func<T, object?>>(fieldExpression, sourceParameter).Compile();
             return compiled;
         }
 
-        public override Action<T, object?> CreateSet<T>(FieldInfo fieldInfo)
+        public override Serialization.Action<T, object?> CreateSet<T>(FieldInfo fieldInfo)
         {
             ValidationUtils.ArgumentNotNull(fieldInfo, nameof(fieldInfo));
 
@@ -307,13 +307,13 @@ namespace Newtonsoft.Json.Utilities
 
             BinaryExpression assignExpression = Expression.Assign(fieldExpression, valueExpression);
 
-            LambdaExpression lambdaExpression = Expression.Lambda(typeof(Action<T, object>), assignExpression, sourceParameterExpression, valueParameterExpression);
+            LambdaExpression lambdaExpression = Expression.Lambda(typeof(Serialization.Action<T, object>), assignExpression, sourceParameterExpression, valueParameterExpression);
 
-            Action<T, object?> compiled = (Action<T, object?>)lambdaExpression.Compile();
+            Serialization.Action<T, object?> compiled = (Serialization.Action<T, object?>)lambdaExpression.Compile();
             return compiled;
         }
 
-        public override Action<T, object?> CreateSet<T>(PropertyInfo propertyInfo)
+        public override Serialization.Action<T, object?> CreateSet<T>(PropertyInfo propertyInfo)
         {
             ValidationUtils.ArgumentNotNull(propertyInfo, nameof(propertyInfo));
 
@@ -350,9 +350,9 @@ namespace Newtonsoft.Json.Utilities
                 setExpression = Expression.Call(readInstanceParameter, setMethod, readValueParameter);
             }
 
-            LambdaExpression lambdaExpression = Expression.Lambda(typeof(Action<T, object?>), setExpression, instanceParameter, valueParameter);
+            LambdaExpression lambdaExpression = Expression.Lambda(typeof(Serialization.Action<T, object?>), setExpression, instanceParameter, valueParameter);
 
-            Action<T, object?> compiled = (Action<T, object?>)lambdaExpression.Compile();
+            Serialization.Action<T, object?> compiled = (Serialization.Action<T, object?>)lambdaExpression.Compile();
             return compiled;
         }
         

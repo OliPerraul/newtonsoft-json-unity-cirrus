@@ -242,7 +242,7 @@ namespace Newtonsoft.Json.Utilities
             generator.Return();
         }
 
-        public override Func<T> CreateDefaultConstructor<T>(Type type)
+        public override Newtonsoft.Json.Serialization.Func<T> CreateDefaultConstructor<T>(Type type)
         {
             DynamicMethod dynamicMethod = CreateDynamicMethod("Create" + type.FullName, typeof(T), ReflectionUtils.EmptyTypes, type);
             dynamicMethod.InitLocals = true;
@@ -250,7 +250,7 @@ namespace Newtonsoft.Json.Utilities
 
             GenerateCreateDefaultConstructorIL(type, generator, typeof(T));
 
-            return (Func<T>)dynamicMethod.CreateDelegate(typeof(Func<T>));
+            return (Newtonsoft.Json.Serialization.Func<T>)dynamicMethod.CreateDelegate(typeof(Newtonsoft.Json.Serialization.Func<T>));
         }
 
         private void GenerateCreateDefaultConstructorIL(Type type, ILGenerator generator, Type delegateType)
@@ -282,14 +282,14 @@ namespace Newtonsoft.Json.Utilities
             generator.Return();
         }
 
-        public override Func<T, object?> CreateGet<T>(PropertyInfo propertyInfo)
+        public override Newtonsoft.Json.Serialization.Func<T, object?> CreateGet<T>(PropertyInfo propertyInfo)
         {
             DynamicMethod dynamicMethod = CreateDynamicMethod("Get" + propertyInfo.Name, typeof(object), new[] { typeof(T) }, propertyInfo.DeclaringType);
             ILGenerator generator = dynamicMethod.GetILGenerator();
 
             GenerateCreateGetPropertyIL(propertyInfo, generator);
 
-            return (Func<T, object?>)dynamicMethod.CreateDelegate(typeof(Func<T, object?>));
+            return (Newtonsoft.Json.Serialization.Func<T, object?>)dynamicMethod.CreateDelegate(typeof(Newtonsoft.Json.Serialization.Func<T, object?>));
         }
 
         private void GenerateCreateGetPropertyIL(PropertyInfo propertyInfo, ILGenerator generator)
@@ -310,12 +310,12 @@ namespace Newtonsoft.Json.Utilities
             generator.Return();
         }
 
-        public override Func<T, object?> CreateGet<T>(FieldInfo fieldInfo)
+        public override Newtonsoft.Json.Serialization.Func<T, object?> CreateGet<T>(FieldInfo fieldInfo)
         {
             if (fieldInfo.IsLiteral)
             {
                 object constantValue = fieldInfo.GetValue(null);
-                Func<T, object?> getter = o => constantValue;
+                Newtonsoft.Json.Serialization.Func<T, object?> getter = o => constantValue;
                 return getter;
             }
 
@@ -324,7 +324,7 @@ namespace Newtonsoft.Json.Utilities
 
             GenerateCreateGetFieldIL(fieldInfo, generator);
 
-            return (Func<T, object?>)dynamicMethod.CreateDelegate(typeof(Func<T, object?>));
+            return (Newtonsoft.Json.Serialization.Func<T, object?>)dynamicMethod.CreateDelegate(typeof(Newtonsoft.Json.Serialization.Func<T, object?>));
         }
 
         private void GenerateCreateGetFieldIL(FieldInfo fieldInfo, ILGenerator generator)

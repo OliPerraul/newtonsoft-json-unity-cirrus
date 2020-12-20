@@ -1407,20 +1407,7 @@ namespace Newtonsoft.Json.Serialization
             // warning - this method use to cause errors with Intellitrace. Retest in VS Ultimate after changes
             IValueProvider valueProvider;
 
-#if !(PORTABLE40 || PORTABLE || DOTNET || NETSTANDARD2_0 || UNITY_LTS)
-            if (DynamicCodeGeneration)
-            {
-                valueProvider = new DynamicValueProvider(member);
-            }
-            else
-            {
-                valueProvider = new ReflectionValueProvider(member);
-            }
-#elif !(PORTABLE40 || UNITY_LTS)
-            valueProvider = new ExpressionValueProvider(member);
-#else
             valueProvider = new ReflectionValueProvider(member);
-#endif
 
             return valueProvider;
         }

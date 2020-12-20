@@ -2453,7 +2453,7 @@ namespace Newtonsoft.Json.Linq
         /// </summary>
         /// <typeparam name="T">The type of the annotation to retrieve.</typeparam>
         /// <returns>The first annotation object that matches the specified type, or <c>null</c> if no annotation is of the specified type.</returns>
-        public T? Annotation<T>() where T : class
+        public T Annotation<T>() where T : class
         {
             if (_annotations != null)
             {

@@ -1,0 +1,1 @@
+﻿#define NEWTONSOFT_JSON
